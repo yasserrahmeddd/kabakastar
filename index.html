@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KABAKA STAR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo/466701909_960365822596446_6906447604524914700_n-removebg-preview.png" alt="KABAKA STAR Logo" style="height: 50px; width: auto;">
+            </div>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="about.html">عنّا</a></li>
+                <li><a href="contact.html">تواصل معنا</a></li>
+                <li><a href="https://wa.me/201150501023" target="_blank" class="whatsapp-direct">📱 واتساب</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Image Slider -->
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide active"><img src="images/slider/(1.jpg.jpg" alt="Image 1"></div>
+                <div class="slide"><img src="images/slider/2.jpg.jpg" alt="Image 2"></div>
+                <div class="slide"><img src="images/slider/3.jpg.jpg" alt="Image 3"></div>
+                <div class="slide"><img src="images/slider/4.jpg.jpg" alt="Image 4"></div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+
+        <section class="testimonials">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"The quality of the products is amazing. I am very happy with my purchase."</p>
+                    <h4>- Ahmed Hassan</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Excellent customer service and fast delivery. I highly recommend KABAKA STAR."</p>
+                    <h4>- Fatima Ali</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"A great shopping experience. The products are exactly as described."</p>
+                    <h4>- Mohamed Ibrahim</h4>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <!-- Featured Product 1 -->
+                <div class="product-card">
+                    <img src="images/model1/576314537_827012803398013_8800904942919001222_n.jpg" alt="Model 1">
+                    <h3>Model 1</h3>
+                    <p>$29.99</p>
+                    <button class="btn" onclick="showCheckout('Model 1', '$29.99')">Add to Cart</button>
+                </div>
+                <!-- Featured Product 2 -->
+                <div class="product-card">
+                    <img src="images/model2/575445797_1847249799258741_7956969763133939677_n.jpg" alt="Model 2">
+                    <h3>Model 2</h3>
+                    <p>$39.99</p>
+                    <button class="btn" onclick="showCheckout('Model 2', '$39.99')">Add to Cart</button>
+                </div>
+                <!-- Featured Product 3 -->
+                <div class="product-card">
+                    <img src="images/model3/576314537_827012803398013_8800904942919001222_n.jpg" alt="Model 3">
+                    <h3>Model 3</h3>
+                    <p>$49.99</p>
+                    <button class="btn" onclick="showCheckout('Model 3', '$49.99')">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout Modal -->
+        <div id="checkoutModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeCheckout()">&times;</span>
+                <h2>Checkout</h2>
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Delivery Address:</label>
+                        <textarea id="address" name="address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="governorate">Governorate:</label>
+                        <select id="governorate" name="governorate" required>
+                            <option value="">Select Governorate</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Giza">Giza</option>
+                            <option value="Shubra El-Kheima">Shubra El-Kheima</option>
+                            <option value="Port Said">Port Said</option>
+                            <option value="Suez">Suez</option>
+                            <option value="Luxor">Luxor</option>
+                            <option value="Aswan">Aswan</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment">Payment Method:</label>
+                        <select id="payment" name="payment" required>
+                            <option value="">Select Payment Method</option>
+                            <option value="Vodafone Cash">Vodafone Cash</option>
+                            <option value="Fawry">Fawry</option>
+                            <option value="InstaPay">InstaPay</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Additional Notes:</label>
+                        <textarea id="notes" name="notes" placeholder="Any special instructions..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Complete Order</button>
+                    <button type="button" class="whatsapp-btn" onclick="sendDirectWhatsApp()">💳 الدفع عبر واتساب</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- All Products Section -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2>All Products</h2>
+                <div class="product-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <img src="images/576314537_827012803398013_8800904942919001222_n.jpg" alt="Product 1">
+                        <h3>Product 1</h3>
+                        <p>$19.99</p>
+                        <button class="btn" onclick="showCheckout('Product 1', '$19.99')">Add to Cart</button>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <img src="images/577314421_1383127723248342_4245367063735525109_n.jpg" alt="Product 2">
+                        <h3>Product 2</h3>
+                        <p>$24.99</p>
+                        <button class="btn" onclick="showCheckout('Product 2', '$24.99')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <img src="images/logo/466701909_960365822596446_6906447604524914700_n-removebg-preview.png" alt="KABAKA STAR Logo" style="height: 40px; width: auto; margin-bottom: 10px;">
+                <p>
+                    KABAKA STAR is your destination for the latest and greatest in fashion. We are committed to providing high-quality products and excellent customer service.
+                </p>
+                <div class="contact">
+                    <span><i class="fas fa-phone"></i> &nbsp; 01211157539</span>
+                    <span><i class="fas fa-envelope"></i> &nbsp; info@kabakastar.com</span>
+                </div>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section links">
+                <h2>Quick Links</h2>
+                <br>
+                <ul>
+                    <a href="#"><li>Home</li></a>
+                    <a href="#"><li>Products</li></a>
+                    <a href="#"><li>About Us</li></a>
+                    <a href="#"><li>Contact Us</li></a>
+                </ul>
+            </div>
+
+            <div class="footer-section contact-form">
+                <h2>Contact Us</h2>
+                <br>
+                <form action="#" method="post">
+                    <input type="email" name="email" class="text-input contact-input" placeholder="Your email address...">
+                    <textarea rows="4" name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
+                    <button type="submit" class="btn btn-big contact-btn">
+                        <i class="fas fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2024 KABAKA STAR | Designed by You
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/201150501023" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
