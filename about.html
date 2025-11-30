@@ -4,44 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عنّا - KABAKA STAR</title>
+
+    <!-- خطوط -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+    <!-- Header -->
     <header>
-        <nav>
+        <nav class="navbar">
             <div class="logo">
-                <img src="images/logo/466701909_960365822596446_6906447604524914700_n-removebg-preview.png" alt="KABAKA STAR Logo" style="height: 50px; width: auto;">
+                <img src="images/logo/466701909_960365822596446_6906447604524914700_n-removebg-preview.png" alt="KABAKA STAR Logo">
             </div>
-            <ul>
+
+            <ul class="nav-links">
                 <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="about.html">عنّا</a></li>
+                <li><a href="about.html" class="active">عنّا</a></li>
                 <li><a href="contact.html">تواصل معنا</a></li>
-                <li><a href="https://wa.me/201150501023" target="_blank" class="whatsapp-direct">📱 واتساب</a></li>
+                <li><a class="whatsapp-direct" target="_blank" href="https://wa.me/201150501023">📱 واتساب</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+
+        <!-- About Section -->
         <section class="about-us">
-            <h1>عنّا</h1>
-            <p>نحن KABAKA STAR، علامة تجارية مصرية فاخرة للملابس. نسعى لتقديم تصاميم عصرية وجودة عالية لعملائنا.</p>
+            <h1 class="fire-title">عنّا</h1>
+            <p class="about-text">
+                نحن <strong>KABAKA STAR</strong>، علامة تجارية مصرية فاخرة للملابس.  
+                نسعى دائمًا لتقديم تصاميم عصرية وجودة عالية ترضي ذوق عملائنا.
+            </p>
+
             <div class="logo-container">
                 <div class="logo-3d">KABAKA STAR</div>
             </div>
         </section>
+
     </main>
 
+
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
+
             <div class="footer-section about">
-                <img src="images/logo/466701909_960365822596446_6906447604524914700_n-removebg-preview.png" alt="KABAKA STAR Logo" style="height: 40px; width: auto; margin-bottom: 10px;">
+                <img src="images/logo/466701909_960365822596446_6906447604524914700_n-removebg-preview.png" alt="KABAKA STAR Logo" class="footer-logo">
                 <p>
-                    KABAKA STAR is your destination for the latest and greatest in fashion. We are committed to providing high-quality products and excellent customer service.
+                    KABAKA STAR is your destination for premium fashion.  
+                    We provide high-quality products and top-tier customer experience.
                 </p>
+
                 <div class="contact">
-                    <span><i class="fas fa-phone"></i> &nbsp; 01211157539</span>
-                    <span><i class="fas fa-envelope"></i> &nbsp; info@kabakastar.com</span>
+                    <span><i class="fas fa-phone"></i>&nbsp; 01211157539</span>
+                    <span><i class="fas fa-envelope"></i>&nbsp; info@kabakastar.com</span>
                 </div>
+
                 <div class="socials">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -51,25 +75,22 @@
             </div>
 
             <div class="footer-section links">
-                <h2>Quick Links</h2>
-                <br>
+                <h2>روابط سريعة</h2>
                 <ul>
-                    <a href="#"><li>Home</li></a>
-                    <a href="#"><li>Products</li></a>
-                    <a href="#"><li>About Us</li></a>
-                    <a href="#"><li>Contact Us</li></a>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">المنتجات</a></li>
+                    <li><a href="#">عنّا</a></li>
+                    <li><a href="#">تواصل معنا</a></li>
                 </ul>
             </div>
 
             <div class="footer-section contact-form">
-                <h2>Contact Us</h2>
-                <br>
+                <h2>اترك رسالة</h2>
                 <form action="#" method="post">
-                    <input type="email" name="email" class="text-input contact-input" placeholder="Your email address...">
-                    <textarea rows="4" name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
-                    <button type="submit" class="btn btn-big contact-btn">
-                        <i class="fas fa-envelope"></i>
-                        Send
+                    <input type="email" name="email" class="text-input" placeholder="بريدك الإلكتروني...">
+                    <textarea rows="4" name="message" class="text-input" placeholder="رسالتك..."></textarea>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paper-plane"></i> إرسال
                     </button>
                 </form>
             </div>
@@ -81,6 +102,7 @@
         </div>
     </footer>
 
+
     <!-- Floating WhatsApp Button -->
     <div class="whatsapp-float">
         <a href="https://wa.me/201150501023" target="_blank">
@@ -89,5 +111,6 @@
     </div>
 
     <script src="script.js"></script>
+
 </body>
 </html>
