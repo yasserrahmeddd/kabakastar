@@ -1,243 +1,212 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Slider functionality
-    const sliderContainer = document.querySelector('.slider-container');
-    if (sliderContainer) {
-        let slideIndex = 0;
-        const slides = document.getElementsByClassName("slide");
+document.addEventListener('DOMContentLoaded', function () {
 
+    /* -----------------------------------------------------------
+       🔥 SLIDER (محسّن – أسرع – أنعم – ريسبونسيف)
+    ----------------------------------------------------------- */
+    const slides = document.querySelectorAll(".slide");
+    let slideIndex = 0;
+
+    if (slides.length > 0) {
         function showSlides() {
-            if (slides.length === 0) return;
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].classList.remove("active");
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1;
-            }
-            slides[slideIndex - 1].classList.add("active");
-            setTimeout(showSlides, 4000); // Change image every 4 seconds
+            slides.forEach(slide => slide.classList.remove("active"));
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].classList.add("active");
+
+            setTimeout(showSlides, 4000);
         }
 
-        // Make moveSlide globally accessible for onclick handlers
-        window.moveSlide = function(n) {
-            slideIndex += n;
-            if (slideIndex > slides.length) {
-                slideIndex = 1;
-            }
-            if (slideIndex < 1) {
-                slideIndex = slides.length;
-            }
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].classList.remove("active");
-            }
-            slides[slideIndex - 1].classList.add("active");
+        window.moveSlide = function (n) {
+            slides[slideIndex].classList.remove("active");
+            slideIndex = (slideIndex + n + slides.length) % slides.length;
+            slides[slideIndex].classList.add("active");
         };
 
         showSlides();
     }
 
-    // Modal functionality
+    /* -----------------------------------------------------------
+       🔥 CHECKOUT MODAL (محسّن + أنيميشن)
+    ----------------------------------------------------------- */
+
     const checkoutModal = document.getElementById('checkoutModal');
     let selectedProduct = null;
-    
+
     if (checkoutModal) {
-        window.showCheckout = function(productName = '', productPrice = '') {
+        window.showCheckout = function (productName = '', productPrice = '') {
             selectedProduct = productName ? { name: productName, price: productPrice } : null;
-            checkoutModal.style.display = 'block';
+
+            checkoutModal.classList.add("show");
+            checkoutModal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         };
 
-        window.closeCheckout = function() {
-            checkoutModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+        window.closeCheckout = function () {
+            checkoutModal.classList.remove("show");
+
+            setTimeout(() => {
+                checkoutModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
         };
 
-        window.onclick = function(event) {
-            if (event.target === checkoutModal) {
+        // إغلاق عند الضغط على الخلفية
+        checkoutModal.addEventListener('click', function (e) {
+            if (e.target === checkoutModal) {
                 closeCheckout();
             }
-        };
+        });
+    }
 
-        const checkoutForm = document.getElementById('checkoutForm');
-        if (checkoutForm) {
-            checkoutForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+    /* -----------------------------------------------------------
+       🔥 إرسال الفورم – واتساب
+    ----------------------------------------------------------- */
 
-                const formData = new FormData(this);
-                const data = {};
-                for (let [key, value] of formData.entries()) {
-                    data[key] = value;
-                }
+    const checkoutForm = document.getElementById('checkoutForm');
 
-                let productInfo = '';
-                if (selectedProduct) {
-                    productInfo = `
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const data = Object.fromEntries(new FormData(this).entries());
+
+            const productInfo = selectedProduct ? `
 📦 *معلومات المنتج:*
-الاسم: ${selectedProduct.name}
-السعر: ${selectedProduct.price}
+• الاسم: ${selectedProduct.name}
+• السعر: ${selectedProduct.price}
 
-`;
-                }
+` : '';
 
-                const whatsappMessage = `
+            const whatsappMessage = `
 🛍️ *KABAKA STAR - طلب جديد*
 ${productInfo}
-👤 *معلومات العميل:*
-الاسم: ${data.name}
-الهاتف: ${data.phone}
-المحافظة: ${data.governorate}
-العنوان: ${data.address}
+👤 *بيانات العميل:*
+• الاسم: ${data.name}
+• الهاتف: ${data.phone}
+• المحافظة: ${data.governorate}
+• العنوان: ${data.address}
 
 💳 *طريقة الدفع:* ${data.payment}
 
-📝 *ملاحظات إضافية:*
+📝 *ملاحظات:*
 ${data.notes || 'لا يوجد'}
 
 ---
-تم استلام الطلب من الموقع الإلكتروني
-                `.trim();
+تم إرسال الطلب من الموقع الإلكتروني
+            `;
 
-                const whatsappNumber = '201150501023';
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            alert('تم إرسال طلبك! سيتم فتح واتساب الآن.');
 
-                // Show success message first, then open WhatsApp
-                alert('تم إرسال طلبك بنجاح! سيتم فتح واتساب الآن لإرسال الطلب.');
-                
-                // Small delay to ensure user sees the message
-                setTimeout(() => {
-                    window.open(whatsappUrl, '_blank');
-                }, 1000);
+            setTimeout(() => {
+                window.open(
+                    `https://wa.me/201150501023?text=${encodeURIComponent(whatsappMessage)}`,
+                    '_blank'
+                );
+            }, 800);
 
-                closeCheckout();
-                this.reset();
-            });
-        }
+            closeCheckout();
+            checkoutForm.reset();
+        });
     }
 
-    // Contact form submission in footer
+    /* -----------------------------------------------------------
+       🔥 إرسال رسالة من الفوتر – واتساب
+    ----------------------------------------------------------- */
     const contactForm = document.querySelector('.footer-section.contact-form form');
+
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const email = this.querySelector('input[name="email"]').value;
-            const message = this.querySelector('textarea[name="message"]').value;
+            const email = this.querySelector("input[name='email']").value;
+            const message = this.querySelector("textarea[name='message']").value;
 
             const whatsappMessage = `
 📧 *KABAKA STAR - رسالة جديدة*
 
-*من:* ${email}
+👤 *البريد:* ${email}
 
-*الرسالة:*
+💬 *الرسالة:*
 ${message}
 
 ---
-رسالة من نموذج الاتصال بالموقع
-            `.trim();
+مرسلة من نموذج التواصل بالموقع
+            `;
 
-            const whatsappNumber = '201150501023';
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            alert("تم الإرسال! سيتم فتح واتساب الآن");
 
-                // Show success message first, then open WhatsApp
-                alert('تم إرسال رسالتك بنجاح! سيتم فتح واتساب الآن لإرسال الرسالة.');
-                
-                // Small delay to ensure user sees the message
-                setTimeout(() => {
-                    window.open(whatsappUrl, '_blank');
-                }, 1000);
+            setTimeout(() => {
+                window.open(
+                    `https://wa.me/201150501023?text=${encodeURIComponent(whatsappMessage)}`,
+                    '_blank'
+                );
+            }, 800);
 
-                this.reset();
+            this.reset();
         });
     }
 
-    // Direct WhatsApp sending function
-    window.sendDirectWhatsApp = function() {
-        const checkoutForm = document.getElementById('checkoutForm');
-        if (!checkoutForm) return;
+    /* -----------------------------------------------------------
+       🔥 زر إرسال مباشر داخل الـ Modal
+    ----------------------------------------------------------- */
+    window.sendDirectWhatsApp = function () {
 
-        // Validate required fields
-        const requiredFields = ['name', 'phone', 'address', 'governorate', 'payment'];
-        let isValid = true;
-        let missingFields = [];
+        const required = ['name', 'phone', 'address', 'governorate', 'payment'];
+        const missing = required.filter(id => !document.getElementById(id)?.value.trim());
 
-        requiredFields.forEach(field => {
-            const element = document.getElementById(field);
-            if (!element || !element.value.trim()) {
-                isValid = false;
-                missingFields.push(field);
-            }
-        });
-
-        if (!isValid) {
-            alert('يرجى ملء جميع الحقول المطلوبة: ' + missingFields.join(', '));
+        if (missing.length) {
+            alert("يرجى ملء الحقول المطلوبة.");
             return;
         }
 
-        // Get form data
-        const formData = new FormData(checkoutForm);
-        const data = {};
-        for (let [key, value] of formData.entries()) {
-            data[key] = value;
-        }
+        const data = Object.fromEntries(new FormData(checkoutForm).entries());
 
-        // Prepare product info
-        let productInfo = '';
-        if (selectedProduct) {
-            productInfo = `
-📦 *معلومات المنتج:*
-الاسم: ${selectedProduct.name}
-السعر: ${selectedProduct.price}
+        const productInfo = selectedProduct ? `
+📦 *المنتج:* ${selectedProduct.name}
+💵 *السعر:* ${selectedProduct.price}
 
-`;
-        }
+` : '';
 
-        // Create WhatsApp message
-        const whatsappMessage = `
-🛍️ *KABAKA STAR - طلب جديد*
+        const msg = `
+🛍️ *KABAKA STAR - طلب مباشر*
 ${productInfo}
-👤 *معلومات العميل:*
-الاسم: ${data.name}
-الهاتف: ${data.phone}
-المحافظة: ${data.governorate}
-العنوان: ${data.address}
+👤 *العميل:* ${data.name}
+📞 *الهاتف:* ${data.phone}
+🌍 *المحافظة:* ${data.governorate}
+📍 *العنوان:* ${data.address}
 
-💳 *طريقة الدفع:* ${data.payment}
+💳 *الدفع:* ${data.payment}
 
-📝 *ملاحظات إضافية:*
-${data.notes || 'لا يوجد'}
+📝 *ملاحظات:* ${data.notes || 'لا يوجد'}
+        `;
 
----
-تم استلام الطلب من الموقع الإلكتروني
-        `.trim();
+        alert("هيتم فتح واتساب الآن لإرسال الطلب.");
 
-        // Send via WhatsApp
-        const whatsappNumber = '201150501023';
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-
-        // Show success message
-        alert('سيتم فتح واتساب الآن لإرسال الطلب مباشرة!');
-        
-        // Open WhatsApp with delay
         setTimeout(() => {
-            window.open(whatsappUrl, '_blank');
-        }, 1000);
+            window.open(
+                `https://wa.me/201150501023?text=${encodeURIComponent(msg)}`,
+                "_blank"
+            );
+        }, 800);
 
-        // Close modal and reset form
         closeCheckout();
         checkoutForm.reset();
     };
 
-    // Scroll animations for header
-    const header = document.querySelector('header');
-    if (header) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
-            } else {
-                header.style.backgroundColor = '#000';
-                header.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
-            }
-        });
-    }
+    /* -----------------------------------------------------------
+       🔥 Header Scroll Effect (ستايل ناري)
+    ----------------------------------------------------------- */
+    const header = document.querySelector("header");
+
+    window.addEventListener("scroll", () => {
+        if (!header) return;
+
+        if (scrollY > 60) {
+            header.style.background = "rgba(0,0,0,0.8)";
+            header.style.boxShadow = "0 5px 25px rgba(255,80,0,0.4)"; // ناري
+            header.style.backdropFilter = "blur(6px)";
+        } else {
+            header.style.background = "rgba(0,0,0,0.4)";
+            header.style.boxShadow = "0 0 0 transparent";
+        }
+    });
 });
